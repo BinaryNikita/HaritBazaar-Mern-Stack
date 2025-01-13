@@ -1,22 +1,37 @@
 import { ProductServices } from './product.service.js';
 import { Order } from '../models/order.model.js';
+import { Product } from '../models/product.model.js';
 
 export class OrderServices {
-  static async getOrdersforVendor(vendorId) {
+  static async getOrdersforVendor(userId) {
     try {
-      const user = await Vendor.findById(vendorId);
-      if (user) {
-        const userId = user.user_id;
-        const orders = await Order.find({ user_id: userId });
-        if (orders) return orders;
-        else false;
-      } else {
-        return false;
+      const vendor = await Vendor.findOne({ user_id: userId }); 
+      if (!vendor) {
+        return false; 
       }
+  
+      const orders = await Order.find(); 
+      const vendorOrders = [];
+  
+
+      for (let order of orders) {
+        if (order.orderItems.length > 0) {
+          for (let item of order.orderItems) {
+            const product = await Product.findById(item.product_id); 
+            if (product && product.vendor_id.equals(vendor._id)) { 
+              vendorOrders.push(order);
+              break; 
+            }
+          }
+        }
+      }
+  
+      return vendorOrders; 
     } catch (err) {
-      console.log(err);
+      console.error(err); 
     }
   }
+  
 
   static async getOrdersOfUser(userId) {
     try {
@@ -66,7 +81,7 @@ export class OrderServices {
       let totalAmount = await this.countTotalAmount(orderDetails);
       const order = await Order.create(orderDetails);
       if (order) {
-        return { orderDetails: order, total: totalAmount }; 
+        return { orderDetails: order, total: totalAmount };
       } else {
         return false;
       }
@@ -94,24 +109,23 @@ export class OrderServices {
 
   static async countTotalAmount(orderDetails) {
     try {
-
       if (!Array.isArray(orderDetails)) {
-        console.error("Expected orderDetails to be an array");
+        console.error('Expected orderDetails to be an array');
         return 0;
       }
-      
+
       let bulkAmount = 0;
-     
-        for (let i = 0; i < orderDetails.length; i++) {
-          const orderItems = orderDetails[i].orderItems; 
-          for (let item of orderItems) {
-            let product = await ProductServices.getProductById(item.product_id);
-            let quantity = item.quantity;
-            bulkAmount += product.price * quantity;
-          }
-        
+
+      for (let i = 0; i < orderDetails.length; i++) {
+        const orderItems = orderDetails[i].orderItems;
+        for (let item of orderItems) {
+          let product = await ProductServices.getProductById(item.product_id);
+          let quantity = item.quantity;
+          bulkAmount += product.price * quantity;
         }
+
         return bulkAmount;
+      }
     } catch (err) {
       console.log(err);
     }

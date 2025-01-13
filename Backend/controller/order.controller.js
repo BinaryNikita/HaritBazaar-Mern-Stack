@@ -3,7 +3,7 @@ import { OrderServices } from '../services/order.service.js';
 export const placeOrder = async (request, response, next) => {
   try {
     const order = await OrderServices.placeOrder(request.body);
-   
+
     if (order) response.send('Order placed succesfully');
     else response.send('error while placing order');
   } catch (err) {
@@ -11,14 +11,10 @@ export const placeOrder = async (request, response, next) => {
   }
 };
 
-
-
-
-
 export const getVendorOrders = async (request, response, next) => {
   try {
-    const vendorId = request.user.id;
-    const orders = await OrderServices.getOrdersforVendor(vendorId);
+    const userId = request.user.id;
+    const orders = await OrderServices.getOrdersforVendor(userId);
     if (orders) response.json({ order: orders });
     else response.send('error while fetching orders');
   } catch (err) {
