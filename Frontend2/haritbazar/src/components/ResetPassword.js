@@ -1,15 +1,15 @@
-import React, { useState, useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
-import { api } from '../axios'; // Importing the API instance
+import React, { useState, useEffect } from "react";
+import { useLocation } from "react-router-dom";
+import { api } from "../axios"; 
 
 const ResetPassword = () => {
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
-  const email = queryParams.get('email');  // Extract the email from query params
+  const email = queryParams.get("email"); 
 
-  const [otp, setOtp] = useState('');
-  const [password, setPassword] = useState('');
-  const [message, setMessage] = useState('');
+  const [otp, setOtp] = useState("");
+  const [password, setPassword] = useState("");
+  const [message, setMessage] = useState("");
 
   const handleOtpChange = (e) => setOtp(e.target.value);
   const handlePasswordChange = (e) => setPassword(e.target.value);
@@ -18,55 +18,69 @@ const ResetPassword = () => {
     e.preventDefault();
 
     try {
-      const response = await api.post('/user/reset-password', { email, password, otp });
+      const response = await api.post("/user/reset-password", {
+        email,
+        password,
+        otp,
+      });
+      console.log(password);
       setMessage(response.data.message);
     } catch (error) {
-      setMessage(error.response ? error.response.data.message : 'Error resetting password.');
+      setMessage(
+        error.response ? error.response.data.message : "Error resetting password."
+      );
     }
   };
 
   useEffect(() => {
     if (!email) {
-      setMessage('Invalid or expired email.');
+      setMessage("Invalid or expired email.");
     }
   }, [email]);
 
   return (
-    <div>
-      <h2>Reset Password</h2>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label htmlFor="email">Email Address:</label>
-          <input
-            type="email"
-            id="email"
-            value={email}
-            disabled
-          />
-        </div>
-        <div>
-          <label htmlFor="otp">OTP:</label>
-          <input
-            type="text"
-            id="otp"
-            value={otp}
-            onChange={handleOtpChange}
-            required
-          />
-        </div>
-        <div>
-          <label htmlFor="password">New Password:</label>
-          <input
-            type="password"
-            id="password"
-            value={password}
-            onChange={handlePasswordChange}
-            required
-          />
-        </div>
-        <button type="submit">Reset Password</button>
-      </form>
-      {message && <p>{message}</p>}
+    <div className="d-flex justify-content-center align-items-center min-vh-100 bg-light">
+      <div className="card reset-password-card shadow-lg p-4" style={{ width: '100%', maxWidth: '400px', borderRadius: '12px', backgroundColor: '#28a745', color: '#fff' }}>
+        <h2 className="text-center mb-4">Reset Password</h2>
+        <form onSubmit={handleSubmit}>
+          <div className="mb-3">
+            <label htmlFor="email" className="form-label">Email Address:</label>
+            <input
+              type="email"
+              id="email"
+              className="form-control"
+              value={email}
+              disabled
+            />
+          </div>
+          <div className="mb-3">
+            <label htmlFor="otp" className="form-label">OTP:</label>
+            <input
+              type="text"
+              id="otp"
+              className="form-control"
+              value={otp}
+              onChange={handleOtpChange}
+              required
+            />
+          </div>
+          <div className="mb-3">
+            <label htmlFor="password" className="form-label">New Password:</label>
+            <input
+              type="password"
+              id="password"
+              className="form-control"
+              value={password}
+              onChange={handlePasswordChange}
+              required
+            />
+          </div>
+          <button type="submit" className="btn btn-light w-100">
+            Reset Password
+          </button>
+        </form>
+        {message && <p className="mt-3 text-center">{message}</p>}
+      </div>
     </div>
   );
 };

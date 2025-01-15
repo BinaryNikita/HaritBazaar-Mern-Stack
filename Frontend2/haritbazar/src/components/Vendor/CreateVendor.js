@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
-import { api } from '../axios';
+import { api } from '../../axios';
 import { jwtDecode } from 'jwt-decode';
-import TermsPage from './Terms';
 const getUserIdFromToken = () => {
   const token = localStorage.getItem('token');
   if (token) {
@@ -46,8 +45,7 @@ const CreateVendor = () => {
 
   return (
     <div className="container py-5">
-      <TermsPage/>
-      <h2 className="text-center mb-4 text-success">Create New Vendor</h2>
+      <h2 className="text-center mb-4 text-success">Start selling today...</h2>
       {error && <p className="alert alert-danger">{error}</p>}
       {success && <p className="alert alert-success">{success}</p>}
 
