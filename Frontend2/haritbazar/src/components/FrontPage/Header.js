@@ -12,25 +12,25 @@ const Header = () => {
           <div className="collapse navbar-collapse" id="navbarNav">
             <ul className="navbar-nav ms-auto">
               <li className="nav-item">
-                <a className="nav-link" href="/">Home</a>
+                <a className="nav-link text-success " href="/">Home</a>
               </li>
               <li className="nav-item">
-                <a className="nav-link" href="/product/all-products">Products</a>
+                <a className="nav-link text-success" href="/product/all-products">Products</a>
               </li>
               <li className="nav-item">
-                <a className="nav-link" href="/user/sign-in">Sign-in</a>
+                <a className="nav-link text-success" href="/user/sign-in">Sign-in</a>
               </li>
               <li className="nav-item">
-                <a className="nav-link" href="/user/sign-up">Sign-up</a>
+                <a className="nav-link text-success" href="/user/sign-up">Sign-up</a>
               </li>
               <li className="nav-item">
-                <a className="nav-link" href="/vendor/new-vendor">Become a seller</a>
+                <a className="nav-link text-success" href="/vendor/new-vendor">Become a seller</a>
               </li>
               <li className="nav-item">
-                <a className="nav-link" href="/cart/get-cart">Cart</a>
+                <a className="nav-link text-success" href="/cart/get-cart">Cart</a>
               </li>
               <li className="nav-item">
-                <a className="nav-link" href="/blog">Blog</a>
+                <a className="nav-link text-success" href="/blogs/all-blogs">Blog</a>
               </li>
             </ul>
           </div>

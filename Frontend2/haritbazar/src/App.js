@@ -11,6 +11,7 @@ import Cart from './components/Cart';
 // import TermsPage from './components/Terms';
 import VendorPage from './components/Vendor/VendorPage';
 import BlogManager from './components/Blog';
+import ProductDetail from './components/ProductDetails';
 
 const App = () => {
   return (
@@ -27,7 +28,7 @@ const App = () => {
           <Route path="/forgot-password" element={<ForgotPassword />} />  
           <Route path="/cart/get-cart" element={< Cart/>} />  
           <Route path="/vendor/new-vendor" element={< VendorPage/>} />  
-          <Route path="/blogs" element={< BlogManager/>} />  
+          <Route path="/blogs/all-blogs" element={< BlogManager/>} />  
         </Routes>
       </div>
     </Router>

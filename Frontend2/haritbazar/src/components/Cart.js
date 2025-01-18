@@ -10,12 +10,11 @@ const Cart = () => {
     fetchCart();
   }, []);
 
-  // Fetch the user's cart items from the backend
   const fetchCart = async () => {
     try {
       const response = await api.get("/cart/get-cart", {
         headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`, // Assuming the token is stored in localStorage
+          Authorization: `Bearer ${localStorage.getItem("token")}`, 
         },
       });
       const { data } = response;
@@ -33,7 +32,7 @@ const Cart = () => {
     }
   };
 
-  // Handle removing item from cart
+
   const removeFromCart = async (productId) => {
     try {
       await api.delete(`/cart/delete-cart/${productId}`, {
@@ -41,13 +40,13 @@ const Cart = () => {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
       });
-      fetchCart(); // Refresh the cart after removing item
+      fetchCart(); 
     } catch (err) {
       setError("Failed to remove item from cart");
     }
   };
 
-  // Handle updating the cart item quantity (optional functionality)
+
   const updateQuantity = async (productId, quantity) => {
     try {
       await api.post(
@@ -59,7 +58,7 @@ const Cart = () => {
           },
         }
       );
-      fetchCart(); // Refresh the cart after updating quantity
+      fetchCart(); 
     } catch (err) {
       setError("Failed to update item quantity");
     }
