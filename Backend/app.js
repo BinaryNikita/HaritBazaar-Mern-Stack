@@ -4,11 +4,11 @@ import userRouter from './routes/user.routes.js';
 import vendorRouter from './routes/vendor.routes.js';
 import productRouter from './routes/product.routes.js';
 import orderRouter from './routes/order.routes.js';
+import cartRouter from './routes/cart.routes.js';
 import cors from 'cors';
-import dotenv from 'dotenv';
+// import dotenv from 'dotenv';
 import { connection } from './config/dbConfig.js';
 import bodyParser from 'body-parser';
-console.log(dotenv);
 // dotenv.config();
 
 const app = express();
@@ -21,6 +21,7 @@ app.use('/user', userRouter);
 app.use('/vendor', vendorRouter);
 app.use('/product', productRouter);
 app.use('/order', orderRouter);
+app.use('/cart', cartRouter);
 app.listen(4000, () => {
     console.log("server started....");
 });

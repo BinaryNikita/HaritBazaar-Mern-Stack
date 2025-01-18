@@ -27,16 +27,25 @@ export class ProductServices {
     }
   }
 
-  static async getAllProducts() {
+  static async getAllProducts(page = 1, limit = 10, filter = {}) {
     try {
-      const products = await Product.find().populate('category_id');
-      if (products) return products;
-      else return false;
+      const skip = (page - 1) * limit;
+  
+      const products = await Product.find(filter)
+        .skip(skip)
+        .limit(limit)
+        .populate("category_id");
+  
+      const total = await Product.countDocuments(filter);
+  
+      return { products, total };
     } catch (err) {
-      console.log(err);
+      console.error(err);
+      throw new Error("Error while fetching products");
     }
   }
-
+  
+  
   static async addProduct(data) {
     try {
       const newProduct = await Product.create(data);
@@ -145,3 +154,5 @@ export class ProductServices {
 
 
 }
+
+

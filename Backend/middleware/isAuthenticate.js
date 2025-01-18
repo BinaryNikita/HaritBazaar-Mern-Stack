@@ -9,7 +9,7 @@ export const authenticateToken = async (request, response, next) => {
     }
     try{
         const secretKey =  "gdbjsbhgdyebfh";
-      const decode = jwt.verify(token, process.env.JWT_SECRET);
+      const decode = jwt.verify(token, secretKey);
       request.user = decode;
       next();
     }catch(err){

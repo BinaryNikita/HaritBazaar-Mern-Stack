@@ -13,20 +13,36 @@ export const bulkAdd = async (request, response, next) => {
     }
 }
 
-export const getAllProduct = async (request, response, next) => {
-    try{
-        const products = await ProductServices.getAllProducts();
-        if(products){
-            response.status(200).json({product: products});
-        }else{
-            response.status(400).json({message: "error while fetching products"});
-        }
-
-    }catch(err){
-        console.log(err);
-
+export const getProductByID = async (request, response, next) => {
+    try {
+      const product = await ProductServices.getProductById(request.params.productId); 
+  
+      if (product) {
+        response.status(200).json({ product});
+      } else {
+        response.status(400).json({ message: "Error while fetching product" });
+      }
+    } catch (err) {
+      console.error(err);
+      response.status(500).json({ message: "Internal server error" });
     }
-}
+  };
+
+export const getAllProduct = async (request, response, next) => {
+    try {
+      const { products, total } = await ProductServices.getAllProducts(); 
+  
+      if (products) {
+        response.status(200).json({ products, total });
+      } else {
+        response.status(400).json({ message: "Error while fetching products" });
+      }
+    } catch (err) {
+      console.error(err);
+      response.status(500).json({ message: "Internal server error" });
+    }
+  };
+  
 export const getAllProductOfVendor = async (request, response, next) => {
     try{
         const vendorId = request.user.id;

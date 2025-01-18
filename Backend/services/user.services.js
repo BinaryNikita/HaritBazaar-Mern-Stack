@@ -10,15 +10,17 @@ export class UserService {
     try {
       const { email, password } = data;
       const user = await User.findOne({ email });
-
       if (user) {
+        console.log(password);
+        console.log(user);
+
         const status = bcrypt.compareSync(password, user.password);
 
         if (status) {
           const secretKey = 'gdbjsbhgdyebfh';
           console.log(secretKey);
           const token = jwt.sign(
-            { id: user._id, email: user.email, role: user.role },
+            { _id: user._id, email: user.email, role: user.role },
             secretKey,
             { expiresIn: '1h' }
           );
@@ -42,13 +44,12 @@ export class UserService {
       const encryptedPassword = bcrypt.hashSync(data.password, saltKey);
       data.password = encryptedPassword;
 
+      const isExist = await User.findOne({ email: data.email });
 
-      const isExist = await User.findOne({email: data.email});
-
-      if(isExist){
+      if (isExist) {
         return { success: false, message: 'Email already in use' };
       }
-      
+
       const user = await User.create(data);
       let admin_regex = /^[a-zA-Z0-9._%+-]+@haritbazaar\.com$/;
       if (admin_regex.test(data.email)) {
@@ -62,9 +63,9 @@ export class UserService {
 
       if (user) {
         const secretKey = 'gdbjsbhgdyebfh';
-        console.log(secretKey);
+        // console.log(secretKey);
         const token = jwt.sign(
-          { id: user._id, email: user.email, role: user.role },
+          { _id: user._id, email: user.email, role: user.role },
           secretKey,
           { expiresIn: '1h' }
         );
@@ -94,6 +95,7 @@ export class UserService {
       const encryptedPassword = bcrypt.hashSync(password, saltKey);
       password = encryptedPassword;
       let user = await User.updateOne({ email }, { password });
+      console.log(user.password);
       if (user) return user || null;
     } catch (err) {
       console.log(err);

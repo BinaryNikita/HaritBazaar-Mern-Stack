@@ -92,9 +92,7 @@ export const resetPasswordWithOtp = async (request, response) => {
       return response.status(400).json({ message: 'Incorrect OTP' });
     }
 
-    const hashedPassword = await bcrypt.hash(password, 10);
-
-    const isUpdated = await UserService.updatePassword(email, hashedPassword);
+    const isUpdated = await UserService.updatePassword(email, password);
 
     await deleteOtp(email);
 

@@ -5,6 +5,7 @@ class VendorService {
     static async createVendor(vendorData) {
         try {
             const newVendor = await Vendor.create(vendorData);
+            console.log(newVendor);
             return newVendor || null;
         } catch (error) {
             throw new Error('Error creating vendor: ' + error.message);

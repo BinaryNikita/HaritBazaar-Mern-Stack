@@ -1,12 +1,12 @@
 import express from "express";
-import {blogController} from "../controller/blog.controller.js";
-
+import { addBlog, fetchAllBlogs, fetchBlogById, updateBlog,  } from "../controller/blog.controller";
+import { deleteBlog } from "../services/blog.service";
 const route = express.Router();
 
-route.post("/addBlog",blogController.addNewBlog);
-route.get("/allBlogs",blogController.fetchAllBlogs);
-route.get("/allBlogs/:id",blogController.fetchBlogById);
-route.put('/:id', blogController.updateBlog);
-route.delete('/:id', blogController.deleteBlog);
+route.post("/add-blog", addBlog);
+route.get("/all-blogs", fetchAllBlogs);
+route.get("/:blogId", fetchBlogById);
+route.put('/:blogId', updateBlog);
+route.delete('/:blogId', deleteBlog);
 
 export default route;

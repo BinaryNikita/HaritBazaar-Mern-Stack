@@ -1,10 +1,9 @@
 import VendorService from '../services/vendor.service.js';
 
-export const createVendor = async (request, response) => {
+export const createVendor = async (request, response, next) => {
   try {
-    const vendorData = request.body;
-
-    let newVendor = await VendorService.createVendor(vendorData);
+console.log(vendorData);
+    let newVendor = await VendorService.createVendor(request.body);
     if (newVendor) {
       return response.status(201).json({ message: 'Vendor created successfully' });
     } else {
