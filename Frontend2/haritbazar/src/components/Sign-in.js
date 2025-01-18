@@ -1,12 +1,11 @@
 import React, { useState } from 'react';
-import { api } from '../axios';  // Assuming axios.js is in the src folder
-import { useNavigate } from 'react-router-dom';  // Use useNavigate instead of useHistory
-
+import { api } from '../axios';  
+import { useNavigate } from 'react-router-dom';  
 const SignIn = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
-  const navigate = useNavigate();  // Replace useHistory with useNavigate
+  const navigate = useNavigate();  
 
   const handleSignIn = async (e) => {
     e.preventDefault();
