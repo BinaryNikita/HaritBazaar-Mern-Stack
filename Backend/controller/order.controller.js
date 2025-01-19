@@ -1,10 +1,17 @@
 import { OrderServices } from '../services/order.service.js';
+import { sendOrderEmail } from '../services/smtp.services.js';
 
 export const placeOrder = async (request, response, next) => {
   try {
+    console.log(request.body);
     const order = await OrderServices.placeOrder(request.body);
-
-    if (order) response.send('Order placed succesfully');
+    if (order){
+      const userEmail = request.user.email; 
+      order.userEmail = userEmail;  
+console.log(order);
+      await sendOrderEmail(order);
+    response.status(200).json({message: 'Order placed succesfully'});
+    }
     else response.send('error while placing order');
   } catch (err) {
     console.log(err);
@@ -46,7 +53,13 @@ export const cancelOrder = async (request, response, next) => {
   try {
     const orderId = request.params.orderId;
     const isCancelled = await OrderServices.cancelOrder(orderId);
-    if (isCancelled) response.send('Order cancelled sucessfully');
+    if (isCancelled) {
+      const userEmail = request.user.email;  
+      isCancelled.userEmail = userEmail;  
+      isCancelled.status = 'Cancelled';  
+
+      await sendOrderEmail(isCancelled);      response.send('Order cancelled sucessfully');
+    }
     else response.send('error while cancelling the order');
   } catch (err) {
     console.log(err);

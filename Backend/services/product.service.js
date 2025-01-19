@@ -27,23 +27,36 @@ export class ProductServices {
     }
   }
 
-  static async getAllProducts(page = 1, limit = 10, filter = {}) {
+  static async getAllProducts(filter = {}) {
     try {
-      const skip = (page - 1) * limit;
-  
-      const products = await Product.find(filter)
-        .skip(skip)
-        .limit(limit)
-        .populate("category_id");
-  
-      const total = await Product.countDocuments(filter);
-  
-      return { products, total };
+
+      const products = await Product.find(filter).populate("category_id");
+    
+      return { products, total: products.length }; 
     } catch (err) {
       console.error(err);
       throw new Error("Error while fetching products");
     }
   }
+  
+
+  // static async getAllProducts(page = 1, limit = 10, filter = {}) {
+  //   try {
+  //     const skip = (page - 1) * limit;
+  
+  //     const products = await Product.find(filter)
+  //       .skip(skip)
+  //       .limit(limit)
+  //       .populate("category_id");
+  
+  //     const total = await Product.countDocuments(filter);
+  
+  //     return { products, total };
+  //   } catch (err) {
+  //     console.error(err);
+  //     throw new Error("Error while fetching products");
+  //   }
+  // }
   
   
   static async addProduct(data) {
@@ -61,7 +74,7 @@ export class ProductServices {
       const product = await Product.findOne({ _id: productId }).populate(
         'category_id'
       );
-      if (product) return product;
+      if (product) return {product};
       else return false;
     } catch (err) {
       console.log(err);

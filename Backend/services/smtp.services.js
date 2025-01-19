@@ -12,24 +12,35 @@ const transporter = nodemailer.createTransport({
     }
 });
 
-export const sendOrderEmail = async (orderDetails) => {
-    try {
-      const mailOptions = {
-        from: 'nikita.works32@gmail.com', 
-        to: 'vishnoinikita376@gmail.com',                    
-        subject: `New Order received`,
-        html: `
-          <h1>New Order Received</h1>
-          <p>${orderDetails}</p>
-        `, 
-      };
-  
-      const info = await transporter.sendMail(mailOptions);
-      console.log('Email sent:', info.messageId);
-    } catch (error) {
-      console.error('Error sending email:', error);
-    }
+export const sendOrderEmail = async (orderResponse) => {
+  try {
+    const { orderDetails, total, product, userEmail } = orderResponse;
+
+    const mailOptions = {
+      from: 'nikita.works32@gmail.com',
+      to: userEmail,  
+      subject: `Order ${orderDetails.orderStatus || 'Pending'} - Order ID: ${orderDetails._id}`,
+      html: `
+        <h1>Order ${orderDetails.orderStatus || 'Pending'}</h1>
+        <p>Order ID: ${orderDetails._id}</p>
+        <p>Order Date: ${new Date(orderDetails.orderDate).toLocaleDateString()}</p>
+        <p>Estimated Delivery Date: ${new Date(orderDetails.orderDate)
+          .setDate(new Date(orderDetails.orderDate).getDate() + 5)
+          .toLocaleDateString()}</p>
+        <h2>Product Details</h2>
+        <p>Product Name: ${product ? product.name : 'Not Found'}</p>
+        <p>Price: ${product ? product.price : 'N/A'}</p>
+        <p>Total Amount: ${total}</p>
+      `,
+    };
+
+    const info = await transporter.sendMail(mailOptions);
+    console.log('Email sent:', info.messageId);
+  } catch (error) {
+    console.error('Error sending email:', error);
+  }
 };
+
 
 export const forgotPassword = async (email) => {
     const otp = generateOtp();

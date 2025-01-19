@@ -1,5 +1,4 @@
 import { request, response } from 'express';
-import bcrypt from 'bcrypt';
 import UserService from '../services/user.services.js';
 import { forgotPassword } from '../services/smtp.services.js';
 import { getOtp, deleteOtp } from '../services/otp.service.js';

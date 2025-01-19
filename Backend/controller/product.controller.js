@@ -18,7 +18,7 @@ export const getProductByID = async (request, response, next) => {
       const product = await ProductServices.getProductById(request.params.productId); 
   
       if (product) {
-        response.status(200).json({ product});
+        response.status(200).json(product);
       } else {
         response.status(400).json({ message: "Error while fetching product" });
       }
@@ -48,7 +48,7 @@ export const getAllProductOfVendor = async (request, response, next) => {
         const vendorId = request.user.id;
         const products = ProductServices.getAllProductsOfVendor(vendorId);
         if(products){
-            response.json({product: products});
+            response.status(200).json({product: products});
         }else{
             response.send("error while fetching products");
         }
@@ -108,9 +108,9 @@ export const productRecommendation = async (request, response, next) => {
         const recommendation  = ProductServices.getProductRecommendation(prodcutId);
   
         if(recommendation){
-          response.json({product: recommendation});
+          response.status(200).json({product: recommendation});
         }else{
-          response.send("error while getting recommendation")
+          response.status(400).send("error while getting recommendation")
         }
     }catch(err){
         console.log(err);
@@ -123,9 +123,9 @@ export const searchProduct = async (request, response, next) => {
          const searchResult = ProductServices.searchProduct(query);
 
          if(searchResult){
-            response.json({result: searchResult});
+            response.status(200).json({result: searchResult});
          }else{
-            response.send("No product found");
+            response.status(400).send("No product found");
          }
     }catch(err){
         console.log(err);

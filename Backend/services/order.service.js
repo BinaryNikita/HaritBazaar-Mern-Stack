@@ -5,37 +5,35 @@ import { Product } from '../models/product.model.js';
 export class OrderServices {
   static async getOrdersforVendor(userId) {
     try {
-      const vendor = await Vendor.findOne({ user_id: userId }); 
+      const vendor = await Vendor.findOne({ user_id: userId });
       if (!vendor) {
-        return false; 
+        return false;
       }
-  
-      const orders = await Order.find(); 
+
+      const orders = await Order.find().populate('orderItems.product_id');
       const vendorOrders = [];
-  
 
       for (let order of orders) {
         if (order.orderItems.length > 0) {
           for (let item of order.orderItems) {
-            const product = await Product.findById(item.product_id); 
-            if (product && product.vendor_id.equals(vendor._id)) { 
+            const product = await Product.findById(item.product_id);
+            if (product && product.vendor_id.equals(vendor._id)) {
               vendorOrders.push(order);
-              break; 
+              break;
             }
           }
         }
       }
-  
-      return vendorOrders; 
+
+      return vendorOrders;
     } catch (err) {
-      console.error(err); 
+      console.error(err);
     }
   }
-  
 
   static async getOrdersOfUser(userId) {
     try {
-      const orders = await Order.find({ user_id: userId });
+      const orders = await Order.find({ user_id: userId }).populate('orderItems.product_id');
       if (orders) return orders;
       else false;
     } catch (err) {
@@ -45,7 +43,7 @@ export class OrderServices {
 
   static async getAllOrders() {
     try {
-      const orders = await Order.find();
+      const orders = await Order.find().populate('orderItems.product_id');
       if (orders) return orders;
       else false;
     } catch (err) {
@@ -55,7 +53,7 @@ export class OrderServices {
 
   static async orderDetails(orderId) {
     try {
-      const order = await Order.findById(orderId);
+      const order = await Order.findById(orderId).populate('orderItems.product_id');
       if (order) return order;
       else false;
     } catch (err) {
@@ -78,10 +76,14 @@ export class OrderServices {
 
   static async placeOrder(orderDetails) {
     try {
+      console.log('Order Details:', orderDetails);
+
       let totalAmount = await this.countTotalAmount(orderDetails);
       const order = await Order.create(orderDetails);
+      
       if (order) {
-        return { orderDetails: order, total: totalAmount };
+
+        return { orderDetails: order, total: totalAmount};
       } else {
         return false;
       }
@@ -123,6 +125,7 @@ export class OrderServices {
           let quantity = item.quantity;
           bulkAmount += product.price * quantity;
         }
+        console.log('Total Amount:', bulkAmount);
 
         return bulkAmount;
       }

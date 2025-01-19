@@ -3,7 +3,6 @@ import jwt from 'jsonwebtoken';
 export const authenticateToken = async (request, response, next) => {
     const authHeader = request.header("Authorization");
     const token = authHeader && authHeader.split(" ")[1];
-    console.log(token);
     if(!token){
         return response.send("Access denied | No token provided" );
     }

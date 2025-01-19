@@ -1,4 +1,3 @@
-import { request } from 'express';
 import { CategoryServices } from '../services/category.services.js';
 
 export const createBulkCategory = async (request, response, next) => {
@@ -56,12 +55,13 @@ export const deleteCategory = async (request, response, next) => {
         console.log(err);
       }
 };
+
 export const getAllCategories = async (request, response, next) => {
     try {
     
         let category = CategoryServices.getAllCategories();
         if (category) {
-          response.send('fetched all Categories successfully');
+          response.status(200).json({category});
         } else {
           response.send('Error while deleting the category');
         }
@@ -69,6 +69,7 @@ export const getAllCategories = async (request, response, next) => {
         console.log(err);
       }
 };
+
 export const getAllCategoryByVendor = async (request, response, next) => {
     try {
         let vendor = request.body.vendor;

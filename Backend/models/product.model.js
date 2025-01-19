@@ -6,7 +6,7 @@ const ProductSchema = new mongoose.Schema({
     description: { type: String },
     price: { type: Number, required: true },
     category_id: { type: mongoose.Schema.Types.ObjectId, ref: 'Category', required: true },
-    image: { type: String },
+    image: [{ type: String }],
     carbonFootprint: { type: Number },
     isOrganic: { type: Boolean, default: false },
     isRecycled: { type: Boolean, default: false },
