@@ -11,7 +11,7 @@ const AboutUsPage = () => {
     {
       name: '',
       role: 'Nikita Vishnoi',
-      imageUrl: 'https://cdn.shopify.com/s/files/1/0621/1472/6127/files/Screenshot_2023-06-22_at_5.21.36_PM-removebg-preview.png?v=1688039142', // Replace with actual image URL
+      imageUrl: 'https://via.placeholder.com/150', // Replace with actual image URL
       description: 'Jane leads the marketing team with innovative strategies, driving our brand to new heights.',
     },
     {
