@@ -32,6 +32,7 @@ const ProductDetail = () => {
 
   if (loading) {
     return (
+
       <div className="d-flex justify-content-center mt-5">
         <div className="spinner-border text-success" role="status">
           <span className="visually-hidden">Loading...</span>
@@ -55,7 +56,9 @@ const ProductDetail = () => {
   };
 
   return (
+    
     <div className="container my-5">
+      
       {product && (
         <>
           <div className="row">

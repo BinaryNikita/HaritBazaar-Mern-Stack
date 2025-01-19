@@ -2,8 +2,8 @@ import Header from "./Header";
 import Footer from "./Footer";
 import HeroSection from "./HeroSection";
 import CarouselSection from "./CarouselSection";
-import NewArrival from "./NewArrival";
-import MostWantedProducts from "./MostWantedProducts";
+import MostWantedProducts from "./MostWanted";
+import LessCarbonFootPrintProduct from "./CarbonFootprint";
 
 const HomePage = () => {
     return(
@@ -12,7 +12,7 @@ const HomePage = () => {
         <HeroSection />
         <CarouselSection />
         <MostWantedProducts/>
-        <NewArrival/>
+        <LessCarbonFootPrintProduct/>
         <Footer /></>
     );
 }

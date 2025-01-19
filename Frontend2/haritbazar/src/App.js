@@ -12,6 +12,8 @@ import BlogManager from './components/Blog/Blog';
 import ProductDetail from './components/Product/ProductDetails';
 import PlaceOrder from './components/Order/PlaceOrder';
 import AboutUsPage from './components/FrontPage/AboutUs';
+import Order from './components/Order/Order';
+import CarbonFootprintPage from './components/Product/CarbonFootprintCounter';
 
 const App = () => {
   return (
@@ -32,6 +34,8 @@ const App = () => {
             <Route path="/product/:productId" element={<ProductDetail />} />
             <Route path="/place-order/:productId" element={<PlaceOrder />} />
             <Route path="/about-us" element={<AboutUsPage />} />
+            <Route path="/orders" element={<Order />} />
+            <Route path="/carbon" element={<CarbonFootprintPage />} />
           </Routes>
         </div>
       </Router>

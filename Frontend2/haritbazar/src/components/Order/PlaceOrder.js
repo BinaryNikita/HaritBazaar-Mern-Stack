@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { api } from '../../axios';
 import { jwtDecode } from 'jwt-decode';
 import Header from '../FrontPage/Header';
 
 const getUserIdFromToken = () => {
-  const token = localStorage.getItem("token"); 
+  const token = localStorage.getItem('token');
   console.log(token);
   const headers = {
-    Authorization: `Bearer ${token}`, 
+    Authorization: `Bearer ${token}`,
   };
 
   return jwtDecode(token)._id;
@@ -17,6 +17,7 @@ const getUserIdFromToken = () => {
 const PlaceOrder = () => {
   const { state } = useLocation();
   const navigate = useNavigate();
+  const params = useParams();
 
   const [billingDetails, setBillingDetails] = useState({
     fullName: '',
@@ -57,7 +58,7 @@ const PlaceOrder = () => {
       billingDetails,
       orderItems: [
         {
-          product_id: product.id,
+          product_id: params.productId,
           quantity: orderQuantity,
         },
       ],
@@ -70,15 +71,17 @@ const PlaceOrder = () => {
 
     try {
       console.log(orderData);
-      const token = localStorage.getItem("token"); 
-  console.log(token);
-  const headers = {
-    Authorization: `Bearer ${token}`, 
-  };
-      const response = await api.post('/order/place-order', orderData, {headers});
+      const token = localStorage.getItem('token');
+      console.log(token);
+      const headers = {
+        Authorization: `Bearer ${token}`,
+      };
+      const response = await api.post('/order/place-order', orderData, {
+        headers,
+      });
       setLoading(false);
       alert('Order placed successfully!');
-      navigate('/');
+      navigate('/orders');
     } catch (err) {
       setLoading(false);
       setError('Error placing the order');
@@ -255,8 +258,7 @@ const PlaceOrder = () => {
               <button
                 type="submit"
                 className="btn btn-success mt-4"
-                disabled={loading}
-              >
+                disabled={loading}>
                 {loading ? 'Placing Order...' : 'Place Order'}
               </button>
             </form>

@@ -87,8 +87,6 @@ const ProductsPage = () => {
           return a.isOrganic === b.isOrganic ? 0 : a.isOrganic ? -1 : 1;
         case 'isRecycled':
           return a.isRecycled === b.isRecycled ? 0 : a.isRecycled ? -1 : 1;
-        case 'category':
-          return a.category.localeCompare(b.category);
         default:
           return a.name.localeCompare(b.name);
       }
@@ -140,7 +138,6 @@ const ProductsPage = () => {
             <option value="discount">Sort by Discount</option>
             <option value="isOrganic">Sort by Organic</option>
             <option value="isRecycled">Sort by Recycled</option>
-            <option value="category">Sort by Category</option>
           </select>
         </div>
         <div className="row">
