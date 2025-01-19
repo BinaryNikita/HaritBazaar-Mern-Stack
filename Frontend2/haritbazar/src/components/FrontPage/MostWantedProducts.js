@@ -1,7 +1,7 @@
 import React from 'react';
 
 const MostWantedProducts = () => {
-  const products = Array(5).fill({
+  const products = Array(4).fill({
     name: 'Product Name',
     price: '$10',
     image: 'https://via.placeholder.com/150',

@@ -32,6 +32,7 @@ const Header = () => {
               <li className="nav-item">
                 <a className="nav-link text-success" href="/blogs/all-blogs">Blog</a>
               </li>
+             
             </ul>
           </div>
         </nav>

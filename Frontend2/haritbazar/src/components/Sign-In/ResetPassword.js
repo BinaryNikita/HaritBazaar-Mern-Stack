@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
-import { api } from "../axios"; 
+import { api } from "../../axios"; 
 
 const ResetPassword = () => {
   const location = useLocation();

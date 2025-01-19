@@ -1,0 +1,138 @@
+/* General Styles */
+body {
+  font-family: 'Arial', sans-serif;
+  background-color: #f8f9fa;
+  color: #333;
+}
+
+.container {
+  max-width: 1200px;
+}
+
+/* Card Styles */
+.card {
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  background-color: #fff;
+  display: flex;
+  flex-direction: column;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.card-img-top {
+  object-fit: cover;
+  height: 250px;
+  border-radius: 12px 12px 0 0;
+}
+
+.card-body {
+  padding: 20px;
+  flex-grow: 1;
+}
+
+.card-title {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #2c3e50;
+  margin-bottom: 10px;
+}
+
+.card-text {
+  font-size: 1rem;
+  color: #16a085;
+}
+
+.card-text .discount {
+  color: #e74c3c;
+  font-weight: bold;
+}
+
+/* Add To Cart and View Details Buttons */
+button, .btn {
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-weight: 600;
+}
+
+.btn-success {
+  background-color: #27ae60;
+  border: none;
+  width: 100%;
+}
+
+.btn-success:hover {
+  background-color: #2ecc71;
+}
+
+.btn-primary {
+  background-color: #3498db;
+  border: none;
+}
+
+.btn-primary:hover {
+  background-color: #2980b9;
+}
+
+/* Layout for Actions (Add to Cart and View Details) */
+.d-flex {
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+}
+
+.container {
+  padding: 5px;
+}
+
+.container .btn {
+  width: 100%;
+}
+
+/* Search Bar and Sorting */
+input[type="text"] {
+  padding: 10px;
+  font-size: 1rem;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  outline: none;
+}
+
+input[type="text"]:focus {
+  border-color: #27ae60;
+}
+
+select {
+  padding: 10px;
+  font-size: 1rem;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  .card {
+    margin-bottom: 15px;
+  }
+
+  .row {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .container {
+    max-width: 100%;
+    padding: 15px;
+  }
+
+  .d-flex {
+    flex-direction: column;
+    align-items: stretch;
+  }
+}

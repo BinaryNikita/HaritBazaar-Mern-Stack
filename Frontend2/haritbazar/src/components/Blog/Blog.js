@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { api } from '../axios'; // Assuming your axios instance is configured
+import { api } from '../../axios'; // Assuming your axios instance is configured
 
 const BlogManager = () => {
   const [blogs, setBlogs] = useState([]);

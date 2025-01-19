@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { api } from "../axios";
+import { api } from "../../axios";
+import { useNavigate } from "react-router-dom";
+
 const AddToCartComponent = ({ productId }) => {
   const [quantity, setQuantity] = useState(1); 
   const [message, setMessage] = useState(""); 
+  const navigate = useNavigate();
 
   const handleAddToCart = async () => {
     try {
@@ -12,11 +15,19 @@ const AddToCartComponent = ({ productId }) => {
         Authorization: `Bearer ${token}`, 
       };
 
+
       const response = await api.post(
         "/cart/add-to-cart",
         { productId, quantity },
         { headers }
       );
+
+
+      if(!token){
+        navigate('/user/sign-in');
+        setMessage(response.data.message || "You have to sign in first...");
+        return;
+      }
 
       setMessage(response.data.message || "Added to cart successfully!");
     } catch (err) {
@@ -40,7 +51,7 @@ const AddToCartComponent = ({ productId }) => {
       </div>
 
       <div className="container">
-      <button className="btn btn-outline-success mt-3" onClick={handleAddToCart}>Add to Cart</button>
+      <button className="btn btn-success mt-3 btn-sm" onClick={handleAddToCart}> Add to Cart</button>
       {message && <p>{message}</p>}
       </div>
     </div>

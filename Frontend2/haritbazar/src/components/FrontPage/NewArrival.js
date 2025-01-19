@@ -1,7 +1,7 @@
 import React from 'react';
 
 const NewArrival = () => {
-  const products = Array(5).fill({
+  const products = Array(4).fill({
     name: 'New Arrival',
     price: '$15',
     image: 'https://via.placeholder.com/150',
