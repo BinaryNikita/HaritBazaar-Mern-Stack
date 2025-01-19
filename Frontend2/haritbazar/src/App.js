@@ -1,19 +1,17 @@
 import React from 'react';
-import ProductsPage from './components/Products';
-// import CreateVendor from './components/CreateVendor';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import SignUp from './components/Sign-up'; // Adjust based on your file structure
-import SignIn from './components/Sign-in';
-import ResetPassword from './components/ResetPassword'; // Import ResetPassword component
-import ForgotPassword from './components/ForgotPassword';
+import ProductsPage from './components/Product/Products';
+import SignUp from './components/Sign-Up/Sign-up'; 
+import SignIn from './components/Sign-In/Sign-in';
+import ResetPassword from './components/Sign-In/ResetPassword'; 
+import ForgotPassword from './components/Sign-In/ForgotPassword';
 import HomePage from './components/FrontPage/HomePage';
-import Cart from './components/Cart';
-// import TermsPage from './components/Terms';
+import Cart from './components/Cart/Cart';
 import VendorPage from './components/Vendor/VendorPage';
-import BlogManager from './components/Blog';
-import ProductDetail from './components/ProductDetails';
-import PlaceOrder from './components/PlaceOrder';
-import AboutUsPage from './components/AboutUs';
+import BlogManager from './components/Blog/Blog';
+import ProductDetail from './components/Product/ProductDetails';
+import PlaceOrder from './components/Order/PlaceOrder';
+import AboutUsPage from './components/FrontPage/AboutUs';
 
 const App = () => {
   return (
